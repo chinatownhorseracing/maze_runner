@@ -1,4 +1,4 @@
-from maze import Maze, HorizontalWall, add_horizontal_wall
+from maze import Maze, HorizontalWall, add_horizontal_wall, VerticalWall
 from runner import explore, create_maze, create_runner
 from utils import render
 from itertools import zip_longest
@@ -150,6 +150,7 @@ with open("maze.txt", "r") as maze:
     """
 
     horizontal_walls = []
+    vertical_walls = []
     print(lines)
     print(number_lines)
     for i in range(number_lines):
@@ -162,9 +163,25 @@ with open("maze.txt", "r") as maze:
                 horizontal_walls.append(horizontal_wall)
         # Case 2
         elif i % 2 == 0:  # even row
-            # odd index inside row
+            # For odd indexes if there is hash there add horizontal wall
             for j in range(1, length_line, 2):
                 if lines[i][j] == "#":
-                    print(f"vertical index {i}, horizontal index {j}")
-                    print(vertical_indexes[i], horizontal_indexes[j])
-                    wall = HorizontalWall(horizontal_indexes[j], vertical_indexes[i])
+                    # print(f"vertical index {i}, horizontal index {j}")
+                    # print(vertical_indexes[i], horizontal_indexes[j])
+                    horizontal_wall = HorizontalWall(
+                        horizontal_indexes[j], vertical_indexes[i]
+                    )
+                    horizontal_walls.append(horizontal_wall)
+        # Case 3
+        elif i % 2 != 0:  # odd row
+            # Vertical lines are between cells so first line then jumping over 1
+            for j in range(0, length_line, 2):
+                if lines[i][j] == "#":
+                    print(i, j)
+                    vertical_wall = VerticalWall(
+                        vertical_indexes[i], horizontal_indexes[j]
+                    )
+                    vertical_walls.append(vertical_wall)
+
+# for wall in vertical_walls:
+#     print(f"Vertical wall at y = {wall.y}, vline = {wall.vline}")
