@@ -207,7 +207,21 @@ def parse_position(text: str) -> tuple[int, int]:
     return (x, y)
 
 
-# maze = maze_reader("bad_maze2.txt")
+def write_statistics(
+    maze_filename: str,
+    exploration_steps: int,
+    shortest_path: List[Tuple[int, int, str]],
+) -> None:
+
+    path_length = len(shortest_path)
+    score = exploration_steps / 4 + path_length
+
+    with open("statistics.txt", "w") as f:
+        f.write(f"{maze_filename}\n")
+        f.write(f"{score}\n")
+        f.write(f"{exploration_steps}\n")
+        f.write(f"{shortest_path}\n")
+        f.write(f"{path_length}\n")
 
 
 if __name__ == "__main__":
@@ -231,19 +245,22 @@ if __name__ == "__main__":
     # Parse correct start, goal positions into tuple, handling any errors
     starting = None
     goal = None
-
     try:
         if args.starting is not None:
             starting = parse_position(args.starting)
+        else:
+            starting = (0, 0)
         if args.goal is not None:
             goal = parse_position(args.goal)
+        else:
+            goal = (maze.width - 1, maze.height - 1)
     except Exception as e:
         print(f"Error: {e}")
         exit(1)
 
+    # Validate if start, end positions within maze boundaries
     width, height = get_dimensions(maze)
 
-    # Validate if start, end positions within maze boundaries
     def validate_position(position):
         x, y = position
         return 0 <= x <= width - 1 and 0 <= y <= height - 1
@@ -255,13 +272,17 @@ if __name__ == "__main__":
         print("Error: goal position is outside the maze.")
         exit(1)
 
-    # Test shortest path handling any error
+    # Get statistics
     try:
+        runner = create_runner(starting[0], starting[1])
+        movements = explore(runner, maze, goal)
+        steps = len(movements)
         path = shortest_path(maze, starting, goal)
+        write_statistics(args.maze, steps, path)
     except Exception as e:
         print(f"Error: {e}")
         exit(1)
 
     # Print path
-    for x, y, action in path:
-        print(x, y, action)
+    # for x, y, action in path:
+    #     print(x, y, action)

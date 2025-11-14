@@ -1,5 +1,6 @@
 # Import maze object and its function to help implement sense_walls for runner
 from maze import Maze, get_walls, create_maze
+import csv
 
 
 class Runner:
@@ -165,16 +166,28 @@ def move(runner: Runner, maze: Maze) -> Tuple[Runner, str]:
 
 
 def explore(
-    runner: Runner, maze: Maze, goal: Optional[Tuple[int, int]] = None
+    runner: Runner,
+    maze: Maze,
+    goal: Optional[Tuple[int, int]] = None,
+    scribe: bool = True,
 ) -> List[Tuple[int, int, str]]:
 
     # If no target make it top right corner
     if goal is None:
         goal = (maze.width - 1, maze.height - 1)
 
+    # For part 6 if we scribe journey open file where we will write it
+    scribe_file = None
+    writer = None
+    if scribe:
+        scribe_file = open("exploration.csv", "w", newline="")
+        writer = csv.writer(scribe_file)
+        writer.writerow(["Step", "x-coordinate", "y-coordinate", "Actions"])
+
     runner_x = runner.x
     runner_y = runner.y
 
+    step = 1
     movements = []
     visited_states = set()
 
@@ -184,13 +197,25 @@ def explore(
         state = (runner.x, runner.y, runner.orientation)
 
         if state in visited_states:
-            # Endless loop, runner doesn't have wall around
+            # Endless loop, no wall around for left hug algorithm
             break
 
         visited_states.add(state)
 
         current_coordinates_actions = (runner_x, runner_y, actions)
         movements.append(current_coordinates_actions)
+
+        # In part 6 write to scribe file
+        if scribe:
+            writer.writerow([step, runner_x, runner_y, actions])
+
+        step += 1
+
+        # Update runner coordinates
         runner_x = runner.x
         runner_y = runner.y
+
+    if scribe:
+        scribe_file.close()
+
     return movements
