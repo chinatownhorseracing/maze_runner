@@ -272,7 +272,7 @@ if __name__ == "__main__":
         print("Error: goal position is outside the maze.")
         exit(1)
 
-    # Get statistics
+    # Get statistics, handling any errors
     try:
         runner = create_runner(starting[0], starting[1])
         movements = explore(runner, maze, goal)
@@ -284,7 +284,3 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Error: {e}")
         exit(1)
-
-    # Print path
-    # for x, y, action in path:
-    #     print(x, y, action)
