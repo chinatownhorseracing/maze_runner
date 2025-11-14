@@ -6,9 +6,9 @@ class HorizontalWall:
     # When checking if 2 horizontal walls are the same check by value not memory address
     def __eq__(self, other_wall):
         return (
-            isinstance(other_wall, HorizontalWall)
-            and self.x == other_wall.x
-            and self.hline == other_wall.hline
+                isinstance(other_wall, HorizontalWall)
+                and self.x == other_wall.x
+                and self.hline == other_wall.hline
         )
 
 
@@ -20,9 +20,9 @@ class VerticalWall:
     # When checking if 2 vertical walls are the same check by value not memory address
     def __eq__(self, other_wall):
         return (
-            isinstance(other_wall, VerticalWall)
-            and self.y == other_wall.y
-            and self.vline == other_wall.vline
+                isinstance(other_wall, VerticalWall)
+                and self.y == other_wall.y
+                and self.vline == other_wall.vline
         )
 
 
@@ -36,7 +36,6 @@ class Maze:
 
 # Put horizontal, vertical walls around the maze
 def create_maze(width: int = 5, height: int = 5) -> Maze:
-
     maze = Maze(width, height)
 
     # Lists to store external walls
@@ -100,9 +99,8 @@ def get_dimensions(maze: Maze) -> Tuple[int, int]:
 
 
 def get_walls(
-    maze: Maze, x_coordinate: int, y_coordinate: int
+        maze: Maze, x_coordinate: int, y_coordinate: int
 ) -> Tuple[bool, bool, bool, bool]:
-
     # Based on cell at (4,2) from figure find vlines, hlines and x,y coord of potential neighbouring walls
     potential_north_neighbour = HorizontalWall(x=x_coordinate, hline=y_coordinate + 1)
     potential_east_neighbour = VerticalWall(y=y_coordinate, vline=x_coordinate + 1)
