@@ -171,11 +171,24 @@ def explore(
     # If no target make it top right corner
     if goal is None:
         goal = (maze.width - 1, maze.height - 1)
+
     runner_x = runner.x
     runner_y = runner.y
+
     movements = []
+    visited_states = set()
+
     while (runner.x, runner.y) != goal:
         runner, actions = move(runner, maze)
+
+        state = (runner.x, runner.y, runner.orientation)
+
+        if state in visited_states:
+            # Endless loop, runner doesn't have wall around
+            break
+
+        visited_states.add(state)
+
         current_coordinates_actions = (runner_x, runner_y, actions)
         movements.append(current_coordinates_actions)
         runner_x = runner.x
