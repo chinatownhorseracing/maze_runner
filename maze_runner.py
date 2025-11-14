@@ -217,11 +217,11 @@ def write_statistics(
     score = exploration_steps / 4 + path_length
 
     with open("statistics.txt", "w") as f:
-        f.write(f"{maze_filename}\n")
-        f.write(f"{score}\n")
-        f.write(f"{exploration_steps}\n")
-        f.write(f"{shortest_path}\n")
-        f.write(f"{path_length}\n")
+        f.write(f"Input file name: {maze_filename}\n")
+        f.write(f"Score: {score}\n")
+        f.write(f"Number steps for exploration: {exploration_steps}\n")
+        f.write(f"Shortest path found: {shortest_path}\n")
+        f.write(f"Length shortest path found: {path_length}\n")
 
 
 if __name__ == "__main__":
