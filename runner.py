@@ -49,8 +49,8 @@ def turn(runner: Runner, direction: str) -> Runner:
     # Move left/right in list representing circle, wraparound if exceed last index
     new_circle_index = (circle_index + move) % len(orientations)
 
+    # Change runner orientation
     new_orientation = orientations[new_circle_index]
-
     runner.orientation = new_orientation
     return runner
 

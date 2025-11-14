@@ -157,8 +157,6 @@ def maze_reader(maze_file: str) -> Maze:
 
             horizontal_walls = []
             vertical_walls = []
-            # print(lines)
-            # print(number_lines)
             for i in range(number_lines):
                 # Case 1
                 if i == 0 or i == number_lines - 1:
@@ -258,9 +256,9 @@ if __name__ == "__main__":
         print(f"Error: {e}")
         exit(1)
 
-    # Validate if start, end positions within maze boundaries
     width, height = get_dimensions(maze)
 
+    # Validate if start, end positions within maze boundaries
     def validate_position(position):
         x, y = position
         return 0 <= x <= width - 1 and 0 <= y <= height - 1
@@ -278,7 +276,7 @@ if __name__ == "__main__":
         movements = explore(runner, maze, goal)
         steps = (
             len(movements) + 1
-        )  # final position as well even though not in movements
+        )  # final position as well even though not in movements so 1 more step
         path = shortest_path(maze, starting, goal)
         write_statistics(args.maze, steps, path)
     except Exception as e:
