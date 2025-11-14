@@ -181,9 +181,3 @@ def explore(
         runner_x = runner.x
         runner_y = runner.y
     return movements
-
-
-# maze = create_maze(11, 5)
-# runner = create_runner()
-# runner_positions_actions = explore(runner, maze)
-# print(runner_positions_actions)
