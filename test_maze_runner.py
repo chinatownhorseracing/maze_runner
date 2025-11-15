@@ -32,7 +32,7 @@ def test_maze_reader():
     maze1 = create_maze(9, 5)
     maze1.horizontal_walls.insert(9, HorizontalWall(4, 2))
 
-    maze2 = maze_reader("maze.txt")
+    maze2 = maze_reader("mazes/maze.txt")
     maze1_horizontal_walls = maze1.horizontal_walls
     maze2_horizontal_walls = maze2.horizontal_walls
 
@@ -43,21 +43,21 @@ def test_maze_reader():
         maze = maze_reader("Notexist.txt")
 
     # Test maze dimensions correct
-    maze = maze_reader("maze.txt")
+    maze = maze_reader("mazes/maze.txt")
     assert get_dimensions(maze) == (9, 5)
 
     # Test error when file rows don't have same number of elements
     with pytest.raises(ValueError):
-        maze = maze_reader("bad_maze.txt")
+        maze = maze_reader("mazes/bad_maze.txt")
 
     # Test error for even number of columns
     with pytest.raises(ValueError):
-        maze = maze_reader("bad_maze2.txt")
+        maze = maze_reader("mazes/bad_maze2.txt")
 
     # Test error for even number of rows
     with pytest.raises(ValueError):
-        maze = maze_reader("bad_maze3.txt")
+        maze = maze_reader("mazes/bad_maze3.txt")
 
     # Test error when maze has symbol that is not dot or hash
     with pytest.raises(ValueError):
-        maze = maze_reader("bad_maze4.txt")
+        maze = maze_reader("mazes/bad_maze4.txt")

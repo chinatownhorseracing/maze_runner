@@ -274,9 +274,7 @@ if __name__ == "__main__":
     try:
         runner = create_runner(starting[0], starting[1])
         movements = explore(runner, maze, goal)
-        steps = (
-            len(movements) + 1
-        )  # final position as well even though not in movements so 1 more step
+        steps = len(movements)
         path = shortest_path(maze, starting, goal)
         write_statistics(args.maze, steps, path)
     except Exception as e:
