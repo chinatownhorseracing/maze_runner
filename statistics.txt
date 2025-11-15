@@ -1,0 +1,5 @@
+Input file name: mazes/maze.txt
+Score: 5.0
+Number steps for exploration: 4
+Shortest path found: [(2, 1, 'LF'), (1, 1, 'LF'), (1, 0, 'LF'), (2, 0, 'LF')]
+Length shortest path found: 4
